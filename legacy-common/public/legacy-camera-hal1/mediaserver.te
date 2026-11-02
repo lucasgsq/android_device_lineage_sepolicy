@@ -1,6 +1,8 @@
 # Legacy camera HAL1
-add_service(mediaserver, cameraserver_service)
-add_hwservice(mediaserver, fwk_camera_hwservice)
+# This legacy provider shares camera-service ownership with cameraserver.
+# Do not assign the isolated hal_camera_server role to the fused mediaserver.
+typeattribute mediaserver camera_service_server;
+typeattribute mediaserver legacy_camera_provider;
 
 allow mediaserver { cameraproxy_service sensor_privacy_service }:service_manager find;
 allow mediaserver hal_camera_hwservice:hwservice_manager find;
